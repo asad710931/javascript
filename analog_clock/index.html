@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Analog Clock</title>
+</head>
+<style>
+body{margin:50px auto; max-width:400px;}
+ .clock-holder{width:360px;height:360px;background-image: url(bg.jpg);background-size: contain;
+display: flex;align-items: center;justify-content: center;}
+.clock-body{width:280px;height:280px;border-radius: 100%;padding:1%;
+display: flex;align-items: center;/*justify-content: center;*/}
+.paddle{position:absolute;width:140px;background-color: rgb(20, 19, 19);height: 3px;transform-origin: 100%;}
+.sec-paddle{transform:rotate(34deg);height: 2px; }
+.min-paddle{transform:rotate(54deg);height: 3px;}
+.hour-paddle{transform:rotate(134deg);height: 5px; }
+.dot{width: 20px; height: 20px; transform: translate(130px,0%); border-radius: 100%;}
+</style>
+<body>
+
+    <div class="clock-holder">
+
+        <div class="clock-body">
+                <div class="paddle sec-paddle"></div>
+                <div class="paddle min-paddle"></div>
+                <div class="paddle hour-paddle"></div>
+                <div class="paddle dot"></div>
+            </div>
+    </div>
+    
+</body>
+
+<script>
+let secPaddle=document.querySelector('.sec-paddle');
+let minPaddle=document.querySelector('.min-paddle');
+let hourPaddle=document.querySelector('.hour-paddle');
+
+const setTiming=()=>{
+
+    let time=new Date();
+
+    //for Seconds paddle
+    let sec=time.getSeconds()
+    let handleSec=Math.floor(((sec/60)*360)+90);
+    secPaddle.style.transform=`rotate(${handleSec}deg)`;
+    //for Minutes paddle
+    let min=time.getMinutes();
+    let handleMin=Math.floor(((min/60)*360)+90);
+    minPaddle.style.transform=`rotate(${handleMin}deg)`;
+    //for Hours paddle
+    let hour=time.getHours();
+    let handleHour=Math.floor(((hour/12)*360)+90);
+    hourPaddle.style.transform=`rotate(${handleHour}deg)`;
+
+    
+    //console.log(handleSec,min);
+
+}
+
+setInterval(setTiming,1000);
+
+
+
+
+
+
+</script>
+</html>

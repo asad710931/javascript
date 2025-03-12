@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit text</title>
+</head>
+<style>
+    body{width:100%;max-width: 800px; margin:10px auto;}
+    .win-page{position: absolute;width:100%;max-width: 800px;margin:10px auto; padding:20px;}
+    .settings{width:280px; height: 100%; position:fixed; border:0.5px solid rgb(201, 197, 197);top:0px;color:black;font-size: 20px;
+       left:-351px;padding:10px 20px;transition: left 0.5s linear 0s;background-color:rgb(56, 209, 133);}
+    .color-box{display:flex;}
+    .color-name{width:30px;height: 30px;margin:3px;border:0.5px solid gray;cursor: pointer;}
+    .open-set-tab{width:30px; font-size: 30px;}
+    .s-btn{padding: 10px 20px; border:none;background-color: rgb(99, 86, 16); color: aliceblue;font: 0.8em sans-serif;}
+    
+</style>
+<body>
+    <div class="win-page">
+        <div class="open-set-tab" style="cursor:pointer;">🧮</div>
+
+        <h2>Lorem ipsum dolor sit Veritatis rerum voluptas</h2>
+        <p>c sit amet consectetur, adipisicing elit. Autem officiis nihil voluptatibus 
+            aliquam. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Autem officiis nihil voluptatibus 
+            aliquam.cupiditate velit iusto nisi tenetur odio recusandae repellat excepturi. Distinctio hic nam cumque?
+        cupiditate velit iusto nisi tenetur odio recusandae repellat excepturi. Distinctio hic nam cumque?
+        </p>
+    </div>
+
+   <div class="settings">
+      <div style="font-size: 30px;">Settings <span class="close-set-tab" style="cursor:pointer;">⛔</span></div><br/><br/>
+        <label for="isbg" title="Default font color check for background Color">Background-Color</label>
+        <input type="checkbox" name="isbg" id="isbg">
+        <div class="color-box">
+            <div class="color-name" data-color="black"></div>
+            <div class="color-name" data-color="white"></div>
+            <div class="color-name" data-color="gold"></div>
+            <div class="color-name" data-color="dodgerblue"></div><br/>
+            <div class="color-name" data-color="tomato"></div>
+            <div class="color-name" data-color="green"></div>
+            <div class="color-name" data-color="skyblue"></div>
+            <div class="color-name" data-color="lightgray"></div>
+        </div><br/>
+
+        <label for="font-size">Change font size </label><br/>
+        <input type="range" name="font-size"  min="1" step="1" max="10" id="font-size"><br/><br/><br/>
+        <label for="font-size">Write your own text </label><br/>
+        <input type="text" id="hText" placeholder="Write the header"><br/><br/>
+
+        <textarea name="text" id="pText" placeholder="Write the Discription" cols="30" rows="10"></textarea>
+        <input type="button" value="Submit it" class="s-btn">
+
+   </div>
+</body>
+
+<script>
+const $=(e)=> {return document.querySelector(e)}
+const $_=(e)=> {return document.querySelectorAll(e)}
+    
+  let tasks=[{title:'font',active:false,size:23}]
+ 
+    localStorage.setItem(tasks,JSON.stringify(tasks))
+
+    const taskList=JSON.parse(localStorage.getItem(tasks));
+    //console.table(task)
+    let ol=$('.ol')
+   // let li=document.createElement('li');
+    //li.innerHTML=''
+    taskList.forEach((task,index) => {
+        console.log(index)
+        index=index+1;
+      //  li.innerHTML+=`<li>${index} /<b> ${task.title}</b> ${task.size} </li></ br>`
+        
+    });
+   // ol.append(li)
+
+//function for setting tab
+let settingsTab=$('.settings')
+let winPage=$('.win-page');
+function openSettingsTab(){
+  if(settingsTab.style.left=='-351px'){
+    settingsTab.style.left='0px';
+     settingsTab.style.transition=`left 0.5s linear 0s`;
+     winPage.style.left='351px';
+     winPage.style.transition=`left 0.5s linear 0s`;
+  }else{
+     settingsTab.style.left='-351px';
+     settingsTab.style.transition=`left 0.5s linear 0s`;
+     winPage.style.left='0px';
+     winPage.style.transition=`left 0.5s linear 0s`;
+  }
+}
+ 
+openSettingsTab()
+$('.open-set-tab').addEventListener('click',openSettingsTab);
+$('.close-set-tab').addEventListener('click',openSettingsTab);
+
+
+
+//settings for color 
+
+
+
+
+
+
+let=colors=$_('.color-name');
+let=isBG=$('#isbg');
+
+
+function setColors(){
+    console.log(isBG.checked);
+    let colValue=this.dataset.color
+    //let settings=color
+
+    if(isBG.checked){
+        localStorage.setItem('bgcolor',colValue) 
+        document.body.style.backgroundColor=localStorage.getItem('bgcolor');
+    }else{
+        localStorage.setItem('color',colValue) 
+        document.body.style.color=localStorage.getItem('color');
+    }
+    
+}
+
+document.body.style.color=localStorage.getItem('color')
+document.body.style.backgroundColor=localStorage.getItem('bgcolor');
+//let color=$('#color').value=localStorage.getItem('color');
+
+colors.forEach(col=>(col.addEventListener('click',setColors)))
+colors.forEach(col=>{
+    col.style.backgroundColor=col.dataset.color;
+    col.title=`${col.dataset.color}`.toUpperCase();
+});
+
+//settings for font size
+function handleFonts(){
+    localStorage.setItem('fontSize',this.value);
+    let fontSize=localStorage.getItem('fontSize')
+    $_('p').forEach(p=>{p.style.fontSize=`${fontSize*5}px`;})
+    $_('h2').forEach(p=>{p.style.fontSize=`${fontSize*8}px`;})
+    $('#font-size').title=localStorage.getItem('fontSize')
+
+
+    
+}
+$_('p').forEach(p=>{p.style.fontSize=`${localStorage.getItem('fontSize')*5}px`;})
+$_('h2').forEach(p=>{p.style.fontSize=`${localStorage.getItem('fontSize')*8}px`;})
+$('#font-size').value=localStorage.getItem('fontSize')
+$('#font-size').title=localStorage.getItem('fontSize')
+
+$('#font-size').addEventListener('change',handleFonts);
+
+
+let p=$('p')
+let h=$('h2')
+
+$('.s-btn').addEventListener('click',()=>{
+    if($('#pText').value==='' || $('#hText').value===''){
+        alert('fill all form filed');
+        return;
+    }
+    
+    let textObj={
+        ptext:$('#pText').value,
+        htext:$('#hText').value
+    }
+    localStorage.setItem('textObj',JSON.stringify(textObj));
+
+    textList=JSON.parse(localStorage.getItem('textObj'));
+    console.log(textObj.ptext)
+    $('p').innerText=textList.ptext;
+    $('h2').innerText=textList.htext;
+    console.log($('#pText').value);
+
+
+
+})
+
+const initFuc=()=>{
+   if(localStorage.getItem('textObj')==null){
+      return
+   }else{
+    textList=JSON.parse(localStorage.getItem('textObj'));
+    $('p').innerText=textList.ptext;
+    $('h2').innerText=textList.htext;
+
+   }
+}
+initFuc();
+</script>
+</html>

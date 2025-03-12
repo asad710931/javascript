@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cam video Recorder</title>
+    <style>
+    video{width:480px;height: 320px;}
+    </style>
+
+</head>
+<body>
+    <video class="vid1" controls></video>
+    <video class="vid2" controls></video><br/>
+    <button class="startbtn">Start Recording</button>
+    <button class="stopbtn">Stop Recording</button>
+    
+</body>
+
+<script>
+//functon to select html element simple way..
+const $=(e)=> {return document.querySelector(e);}
+
+//video capturing 
+const constrains={
+    audio:true,
+    video:{
+        facingMode:"user",
+        width:{min:640,ideal:1280,max:1920},
+        height:{min:480,ideal:720,max:1080}
+    }
+      
+}
+navigator.mediaDevices.getUserMedia(constrains)
+ .then((mediaStream)=>{
+     vid1=$('.vid1');
+     $('.vid2').style.display="none";
+      if("srcObject" in vid1){
+          vid1.srcObject=mediaStream;
+      }else{
+          vid1.src=window.URL.createObjectURL(mediaStream)
+      }
+      vid1.onloadedmetadata=(event)=>{
+          vid1.play();
+      }
+      const dataJunk=[];
+
+      const mediaRecorder=new MediaRecorder(mediaStream);
+      
+      $('.startbtn').addEventListener('click',()=>{
+          console.log('recording Started...');
+          mediaRecorder.start();
+      });
+
+      $('.stopbtn').addEventListener('click',()=>{
+          console.log('recording Stoped.');
+          mediaRecorder.stop();
+          $('.vid2').style.display="block";
+      });
+
+      mediaRecorder.ondataavailable=(e)=>{
+          dataJunk.push(e.data);
+          console.log('data available')
+          console.log(e.data)
+      }
+
+      mediaRecorder.onstop=(e)=>{
+          let blob=new Blob(dataJunk,{type:"video/mp4;"});
+          $('.vid2').src=window.URL.createObjectURL(blob);
+
+          console.log(dataJunk);
+
+      }
+      
+
+
+
+
+
+  }).catch(err=>{
+      console.log(err.name,err.message);
+  });
+
+
+</script>
+
+
+</html>

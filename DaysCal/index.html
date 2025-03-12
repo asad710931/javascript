@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time</title>
+
+    <style>
+        body{
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(49, 48, 48);
+            width:100%;
+            text-align:center;
+            margin: 200px auto;
+    }
+    .line{width:670px;height: 10px; background-color:rgb(49, 48, 48); position: absolute; top:44%;left:12%}
+    .clock-board{font-size: 13em;color:white;font-weight: bolder;}
+    p{font-size: 3em;color:white;font-weight: bolder;text-shadow: 3px 4px 13px rgb(119, 117, 117);}
+    .infoDate{color:white;}
+    </style>
+</head>
+<body> 
+    
+    <span id="time"></span>
+    <div id="clock-board" class="clock-board"></div>
+    <div class="line"></div>
+    <p>Time is running out So use that Wisely</p>
+    <input type="datetime-local" name="getdate" id="getdate"/>
+    <h3 class="infoDate"></h3>
+
+</body>
+
+
+<script>
+ 
+
+const showTime=()=>{
+  let date=new Date()
+  let h = date.getHours()
+  let newH=h
+  let m = date.getMinutes()
+  let newM=m
+  let s = date.getSeconds()
+  let ampm='';
+  let timeBox=document.getElementById('clock-board');
+  //console.log(h,m,s)
+  
+  if(h>12){
+        newH=h-12
+        ampm='pm'
+    }else{
+        ampm='am'
+    }
+    if(h==0){newH=h+12}
+    if(m<10){ newM=`0${newM}`;}
+    if(newH<10){ newH=`0${newH}`;}
+
+
+   // console.log(m)
+   let now=`${newH}:${newM}${ampm}`
+   //document.querySelector('.clock-board').innerText=now;
+   timeBox.innerText=now;
+}
+
+showTime()
+//document.addEventListener('change',showTime)
+setInterval(showTime,1000)
+
+
+let getdesDate=document.querySelector("[name=getdate]")
+
+
+const setTimeForTask=(e)=>{
+
+    let storedData=localStorage.getItem('setDate')
+    
+    let date=new Date(storedData)
+    let now=new Date()
+    let getDate=date.getTime()
+    let dateNow=now.getTime()
+    //console.log(date.getTime())
+    console.log(now)
+    if(dateNow>getDate){
+        console.log('bigger')
+        let inBetwen=dateNow-getDate
+        let minutes=inBetwen/1000/60
+
+        //get total days and remaining hours
+        let days=Math.floor((minutes/60)/24)
+        let month=(days/30)
+        
+        let leftDay=(days/30)%30
+         console.log(month,leftDay)
+
+        let lefthour=(minutes/60)%24
+
+        //get remaining minutes
+        let leftMinuts=((lefthour*60))%60
+        console.log((leftMinuts))
+       // console.log(days)
+        document.querySelector(".infoDate").innerText=`${days} Days and ${Math.floor(lefthour)} Hours and ${Math.floor(leftMinuts)} Minutes left`
+    }else{
+        console.log('Smaller')
+         let inBetwen=getDate-dateNow
+         let minutes=inBetwen/1000/60
+
+        //get total days and remaining hours
+        let days=Math.floor((minutes/60)/24)
+        let lefthour=(minutes/60)%24
+
+        //get remaining minutes
+        let leftMinuts=((lefthour*60))%60
+       // console.log(days)
+        document.querySelector(".infoDate").innerText=`${days} Days and ${Math.floor(lefthour)} Hours and ${Math.floor(leftMinuts)} Minutes Remaining`
+    }
+
+    
+}
+//setTimeForTask
+getdesDate.addEventListener('change',(e)=>{
+    let setDate=new Date(e.target.value)
+    localStorage.setItem('setDate',setDate)
+    setTimeForTask()
+})
+
+setTimeForTask()
+setInterval(setTimeForTask,1000)
+
+
+</script>
+</html>

@@ -1,0 +1,42 @@
+
+body{
+    max-width: 800px;
+    margin: 10px auto;
+    /*background-image: url(images.jpg);*/
+}
+.app-container{
+    display:flex;
+    justify-content:space-evenly;
+    border:0.5px solid gray;
+    padding: 10px;
+
+}
+.nav{
+ border:0.5px solid gray;
+ padding: 10px,20px; 
+ flex:1;  
+}
+.info-screen{
+    flex:3;
+    justify-content: center;
+}
+select,button{
+   padding: 10px 20px;
+   border:none;
+   background: dodgerblue;
+   color:white; 
+   cursor: pointer;
+   margin: 10px;
+}
+select,button:focus{
+    outline: none;
+}
+video{
+    margin: 20px 80px;
+    border: 5px solid brown;
+}
+.imgs{height: 240px;overflow:scroll;padding: 10px;margin:10px;border:2px solid brown}
+img{width:120px;height:90px;margin: 10px;;margin:10px;border:0.5px solid black}
+label{color:white;font-weight: bold;}
+
+.cvs{display: none;}

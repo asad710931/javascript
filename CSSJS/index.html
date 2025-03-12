@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+ body{width:600px;margin:50px auto; text-align: center;padding:10px}
+.control{display: flex;justify-content: center; align-items: center;margin: 20px;}
+input{margin:15px;}
+:root{
+    --spacing:10px;
+    --blur:1px;
+    --base:gold;
+    --opacity:1
+}
+img{
+    background-color: var(--base);
+    padding:var(--spacing);
+    filter:blur(var(--blur));
+    opacity:var(--opacity);
+}
+</style>
+<body>
+
+    <div class="control">
+        <div class="blur">
+            <label for="blur">Blur</label>
+            <input type="range" name="blur" id="" value="0" min="0" max="10" data-sizing="px">
+        </div>
+        <div class="spacing">
+                <label for="spacing">Spacing</label>
+                <input type="range" name="spacing" id="" value="0" min="0" max="50" data-sizing="px">
+            </div>
+
+            <div class="base">
+            <label for="base">Base</label>
+            <input type="color" name="base" id="" value="#fff444">
+        </div>
+
+    </div>
+
+    <img src="https://cdn.daily-sun.com/public/news_images/2022/07/06/ds-19--06-07-2022.jpg"/>
+
+</body>
+<script>
+const inputs=document.querySelectorAll('.control input');
+let grabMouse=false;
+function updateValue(){
+    console.log(grabMouse);
+    
+    let suffex=this.dataset.sizing||'';
+    
+    if(grabMouse==true){
+        document.documentElement.style.setProperty(`--${this.name}`,this.value+suffex);
+        console.log(grabMouse);
+        
+    }
+   
+
+}
+
+
+window.addEventListener('mousedown',()=>grabMouse=true);
+window.addEventListener('mouseup',()=>grabMouse=false);
+
+inputs.forEach(e=>e.addEventListener('mousemove',updateValue))
+inputs.forEach(e=>e.addEventListener('change',updateValue))
+</script>
+</html>

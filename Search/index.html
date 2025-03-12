@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        background-color: rgb(235, 237, 240);
+        max-width: 800px;
+        margin:50px auto;
+    }
+    .search{
+        position: fixed;
+        border: 2px solid rgb(94, 91, 91);
+        padding: 10px;
+        outline: none;
+        border-radius: 10px;
+        top:5%
+        
+    }
+    .result{
+        margin:100px 0px;
+        padding: 10px;
+        border:5px solid rgb(124, 27, 10);
+        height:600px;
+        overflow: scroll;
+    }
+    .item{
+
+        border:0.5px dashed gray;
+        padding: 10px;
+        margin:10px;
+        }
+    .hl{
+        background-color: rgb(197, 197, 9);
+        padding:2px 0px;
+    }
+    .loading{
+       margin-top: 15%;
+    }
+    img{ 
+       display: block;
+       margin-left: auto;
+       margin-right: auto;
+       width: 50%;
+
+    }
+</style>
+<body>
+    <input type="search" name="search" class="search" placeholder="Type for data">
+    <div class="result"></div>
+    <div class="total_result"></div>
+    
+</body>
+
+<script>
+    
+   document.querySelector('.result').innerHTML=`<img class="loading" src="loading.gif"/>`;
+ 
+   const datalist=[];
+   //reading data from externel url 
+    let dataUrl='https://gist.githubusercontent.com/paulmillr/4524946/raw/cc4e46bd806e0a5e162a46ae5c1bdddf532293d0/github-users-stats.json'
+    fetch(dataUrl).then((type)=>type.json()).
+    then(data=>{
+
+        //storing data to local veriable 
+        datalist.push(...data);
+        let resultItems=data.map(d=>{
+           // console.log(d.name)
+            return` <div class="item">
+                   <p>Name:${d.name}</p>
+                   <a href="#">Location :${d.location}</a>
+                   <p>Followed by <b> ${d.followers}</b></p>
+                </div>
+                `
+        })
+
+       // console.log(preloaded)
+        document.querySelector('.result').innerHTML=resultItems;
+        
+    });
+
+   // console.log(datalist)
+
+
+
+    const getMatch=(inputWord,dataToMatch)=>{
+        return dataToMatch.filter(info=>{
+           let regex = new RegExp(inputWord,'gi')
+           return info.name.match(regex)||info.location.match(regex);
+        })
+    }
+//Displaying Result base on search 
+
+const displayResult=(e)=>{
+    userInput=e.target.value||' ';
+    const filteredData=getMatch(userInput,datalist)
+    console.log(filteredData.length)
+    document.querySelector('.total_result').innerHTML=`<h2>Total : <span style="color:red"> ${filteredData.length}</span> Result Found </h2>`
+    if(filteredData.length==0) return document.querySelector('.result').innerHTML=`<h2>No Data Found</h2>`;
+    
+
+
+    let resultItems=filteredData.map(result=>{
+
+       
+        let regex = new RegExp(e.target.value,'gi');
+        let username=result.location.replace(regex,`<b class="hl">${e.target.value}</b>`)
+        let name=result.name.replace(regex,`<b class="hl">${e.target.value}</b>`)
+
+        return `
+         <div class="item">
+             <p>Name:${name}</p>
+             <a href="#">Location :${username}</a>
+             <p>Followed by <b> ${result.followers}</b></p>
+         </div>
+        `
+    }).join('')
+
+    document.querySelector('.result').innerHTML=resultItems;
+
+}
+
+
+document.querySelector('.search').addEventListener('change',displayResult);
+document.querySelector('.search').addEventListener('keyup',displayResult);
+
+</script>
+</html>

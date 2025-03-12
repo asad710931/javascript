@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drop Down</title>
+    <style>
+      .drop-content{max-width:400px; margin:0px auto; overflow: hidden;}
+        .img-box{max-width:100%;}
+        .img{width:100%;height:auto}
+        
+        .object1{width:94%;padding:10px; border:0.5px dotted red;text-align: center;}
+        .label{cursor: pointer;}
+        #file-inpt{display:none;}
+    </style>
+    <script>
+     const $=(e)=>{return document.querySelector(e)}
+      let img;
+       const handleFile=(event)=>{
+          event.preventDefault();
+          console.log(event.type)
+          if(event.type==="drop"){
+            img=event.dataTransfer.files[0];
+          }else{
+            img=event.target.files[0];
+          }
+        
+          
+          let size=img.size;
+          let ext=''
+          if(String(size).length<7 && String(size).length>3){
+             size=(size/1024)
+             ext='kb'
+          }else if(String(size).length>6 && String(size).length<10){
+             size=(size/1024/1024)
+             ext='mb'
+          }
+          $('.label').innerText=img.name
+
+          let imgReader =new FileReader();
+         imgReader.addEventListener('load',()=>{
+            console.log(imgReader.result)
+            $('.img').src=imgReader.result;
+         })
+         if(img){
+            imgReader.readAsDataURL(img)
+         }
+        
+       }
+       
+       const handleSubmit=()=>{
+         console.log(img);
+         let imgReader =new FileReader();
+         imgReader.addEventListener('load',()=>{
+            console.log(imgReader.result)
+            $('.img').src=imgReader.result;
+         })
+         if(img){
+            imgReader.readAsDataURL(img)
+         }
+
+       }
+
+    </script>
+</head>
+<body>
+
+   <div class="drop-content">
+      <div class="img-box">
+         <img class="img" />
+       </div>
+      <div class="object1" dropzone="true" ondrop="handleFile(event)" ondragover="return false">
+        <label for="file-inpt" class="label">Choose or Drop a file</label>
+        <input type="file" id="file-inpt" class="file-inpt" onchange="handleFile(event)"/>
+      </div>
+   </div>
+</body>
+</html>

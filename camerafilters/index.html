@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Video To take Image</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div><h1> LIVE ON CAM 💆GOOGLE METTING</h1></div>
+
+    <div class="app-container">
+        <div class="nav">
+                <button class="takePic">Take Picture</button>
+                <select name="filter" id="" class="filters">
+                        <option value="">Filters</option>
+                        <option value="grayscale(100%)">Grayscale</option>
+                        <option value="sepia(100%)">Sepia</option>
+                        <option value="invert(100%)">Invert</option>
+                        <option value="blur(10px)">Blur</option>
+                        <option value="contrast(200%)">Contrast</option>
+                    </select>
+                    <br/><br/>
+                    <label for="grayscale">Grayscale</label>
+                    <input type="range" name="grayscale" id="grayscale" min="0" max="100">
+                    
+                    <br/><br/>
+                    <label for="contrast">Contrast</label>
+                    <input type="range" name="contrast" id="contrast" min="0" max="200">
+                    <br/><br/>      
+                    <label for="sepia">Sepia</label>
+                    <input type="range" name="sepia" id="sepia" min="0" max="100">
+                    <br/><br/>
+                
+                    <button class="clear">Clear</button>
+            </div>
+            <div class="info-screen">
+                    <video class="vid">Video Not Available</video>
+                    <canvas class="cvs"></canvas>
+                    <div class="imgs"></div>
+            </div>
+        
+    </div>
+    
+</body>
+<script src="script.js" defer></script>
+
+</html>
