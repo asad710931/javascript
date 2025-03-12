@@ -1,4 +1,4 @@
-#Project preview is here
+#Projects preview is here
 
 [BMRcalculate](https://asadportfoliobd.netlify.app/BMRcalculate/).<br/>
 [CSSJS](https://asadportfoliobd.netlify.app/CSSJS/).<br/>
