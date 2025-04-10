@@ -5,7 +5,7 @@ const textArea = $('#text-input');
 const pitch = $('#patch');
 const rate = $('#rate');
 const select = $('#select');
-const btn = $('#submit')
+const btn = $('.submit')
 
 
 const synth=window.speechSynthesis;

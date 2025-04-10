@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></title>
+        <title>Symple_WYSIWYG_System</title>
+        <style>
+        #WYSIWYG_field{
+			max-width:850px;
+			height:auto;
+			margin:20px auto;
+			}
+ input{height: auto;padding: 5px; border: 0.5px solid rgb(158, 155, 155);border-radius: 5px;}
+        textarea,input,select:focus{outline: none;}
+
+        
+        </style>
+		
+  </head>
+<script>
+ 
+ 
+ 
+ function iframeOn(){
+
+	 richTextField.document.designMode='On';
+	
+	
+}
+function iBold(){
+	 
+	richTextField.document.execCommand('bold',false,null);
+}
+ function iUnderline(){
+		richTextField.document.execCommand('underline',false,null);
+
+}
+ function iItalic(){
+		richTextField.document.execCommand('italic',false,null);
+
+}
+ function iFontSize(){
+	 var size=document.getElementById('fontSize').value;
+	 //var fontSize=prompt('Enter a Size From 1-7 :','');
+	richTextField.document.execCommand('FontSize',false,size);
+}
+ function iForeColor(){
+	 	var color=document.getElementById('color').value;
+
+   // var color=prompt('Enter a Name or Hex value :','');
+	richTextField.document.execCommand('Forecolor',false,color);
+	
+}
+ function iHorizontalRule(){
+		richTextField.document.execCommand('inserthorizontalrule',false,null);
+
+}
+function iUnorderedList(){
+ 			richTextField.document.execCommand('InsertUnorderedList',false,"newUL");
+
+
+}
+ function iOrderedList(){
+	    richTextField.document.execCommand('InsertOrderedList',false,"newOL");
+
+}
+function iLink(){
+	 var linkURL=prompt('Write an URL:','http://');
+		  richTextField.document.execCommand('CreateLink', false,linkURL);
+
+}
+ function iUnLink(){
+		richTextField.document.execCommand('Unlink',false,null);
+
+}
+
+ function iImage(){
+	 
+	 var img=prompt('Write URL of Image :','');
+	 
+
+	 if(img != null){
+		 richTextField.execCommand('insertimage',false,img);
+	 }
+	}
+function Submit_data(){
+	var theForm=document.getElementById('form_field');
+	theForm.elements['textArea'].value=window.frames['richTextField'].document.body.innerHTML;
+	theForm.submit();
+}
+</script>
+    <body onload="iframeOn()">
+        <div  id="WYSIWYG_field">
+		        <h2><u>Write your Online Document</u></h2>
+				
+				<form action="WYSIWYG_FILES.php" name="form_field" id="form_field" method="POST">
+				<p><b>Document Title </b>: <input name="my_title" id="my_title" type="text" size="75" maxlength="80"/></input></p>
+				<p><b>Entry_Body :</b><br>
+				<div id="WYSIWYG_btn">
+		          <button type="button" class="btn" onclick="iBold()"><b>B</b></button>
+                          <button type="button" class="btn" onclick="iUnderline()"><u>U</u></button>
+		          <button type="button" class="btn" onclick="iItalic()"><i>I</i></button>
+		         <!--  <input type="button" onclick="iFontSize()" value="Text Size"/>--> 
+                   <select onclick='iFontSize()' id='fontSize' name="size">
+                   
+                     <script>
+                     
+                     for(var i=3;i<8;i++){
+						
+						document.write("<option id='fontSize' value="+i+">"+i+"</option>");
+						 
+						 }
+                     </script>
+                   
+                   </select>
+		          <input type="color" id="color" onclick="iForeColor()" value=""/>
+		          <input type="button" onclick="iHorizontalRule()" value="HR"/>
+		          <input type="button" onclick="iUnorderedList()" value="UL"/>
+		          <input type="button" onclick="iOrderedList()" value="O"/>
+		          <input type="button" onclick="iLink()" value="Link"/>
+		          <input type="button" onclick="iUnLink()" value="UnLink"/>
+		          <input type="button" id="img" onclick="iImage()" value="Image"/>
+                  <br/>
+                  <br>
+				
+				
+			 	</div>
+				
+				
+				
+				<textarea style="display:none;" name="textArea"id="textArea" cols="85" rows="16"> </textarea>
+				<iframe name="richTextField" id="richTextField"style=" border:1px solid black;width:704px;height:310px;"></iframe><br/>
+				<input name="btn" type="submit" value="Submit_Data" onclick="javascript:Submit_data()"/>
+				</p>
+				
+				</form>
+				
+		     
+		
+		
+		
+		
+		
+		</div>
+
+      
+        
+    </body>
+</html>
+<!--
+ @media screen and (max-width: 480px){}
