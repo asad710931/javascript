@@ -1,0 +1,314 @@
+
+<!DOCTYPE html>
+<html>
+    
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>banner Design</title>
+    
+<style>
+  * {
+    box-sizing: border-box;
+}   
+body{
+	  margin:0px;
+	   font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+	}
+	
+.header{
+    
+    background-image:url(banner/header.jpg);
+    background-attachment:fixed;
+    width: 100%;
+    height: 450px;
+    background-position: center;
+    background-size: cover;
+    text-align: center;
+    padding: 50px 0px;
+	
+	}
+h1{
+	
+	padding:10px;
+    font-size: 50px;
+    color: #3392a9;
+    text-shadow: 2px 2px 1px black;
+	
+	}
+	h3{
+	
+    font-size: 25px;
+    color: white;
+	font-weight:100;
+    text-shadow: 2px 2px 1px black;
+		}
+
+
+.btns{
+	width:400px;
+	margin:0px auto;
+	font-family: Helvetica, Arial, sans-serif;
+
+	}		
+a{
+    text-decoration: none;
+    padding: 10px 30px;
+    background-color: #27292b66;
+    float: left;
+    margin: 10px;
+    font-size: 20px;
+    border-radius: 3px;
+    border: 1px solid #13324a;
+    box-shadow: 0px 7px 17px 0px black;
+    transition: all 0.3s cubic-bezier(0.46, 0.03, 0.52, 0.96) 0s;
+
+	
+	}
+	a:hover{
+	background-color:rgba(0,0,0,0);
+	border:1px solid #13324a;
+	 box-shadow: 0px 3px 7px 0px black;
+	transition: all 0.3s cubic-bezier(0.46, 0.03, 0.52, 0.96) 0s;
+	 color:white;
+	}
+	
+	.atv{
+		background-color:rgba(0,0,0,0);
+		}
+
+.my_banner{
+	width:100%;
+	height:auto;
+	 margin:0px 0px;
+    overflow:hidden;
+	}
+	.row {
+    display: -ms-flexbox; /* IE10 */
+    display: flex;
+    -ms-flex-wrap: wrap; /* IE10 */
+    flex-wrap: wrap;
+    padding: 0 4px;
+}
+
+/* Create four equal columns that sits next to each other */
+.column {
+    -ms-flex: 25%; /* IE10 */
+    flex: 25%;
+    max-width: 25%;
+    padding: 0 4px;
+}
+
+.column img {
+    margin-top: 15px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+    box-shadow: 1px 1px 9px 0px black;
+
+}
+.footer{
+	background-image: url(banner/header.jpg);
+	background-attachment:fixed;
+        width:100%;
+	height:auto;
+	text-align:center;
+        background-size:cover;
+        background-position:cover;
+       
+	
+	}
+.footer>p{
+        border-radius: 0px 0px 0px 0px; 
+        padding:80px;
+        color:white;
+        font-size:19px;
+        font-weight: 100;
+	
+	}
+/* Responsive layout - makes a two column-layout instead of four columns */
+@media (max-width: 800px) {
+    .column {
+        -ms-flex: 50%;
+        flex: 50%;
+        max-width: 50%;
+    }
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
+@media (max-width: 600px) {
+    .column {
+        -ms-flex: 100%;
+        flex: 100%;
+        max-width: 100%;
+    }
+     .header{
+       width:100%;
+       height: 480px;
+       padding: 30px;
+	
+	}
+           
+   .header{
+       width:100%;
+       height: 380px;
+       padding: 40px;
+	
+	}
+h1{
+	
+	margin:10px auto;
+    font-size: 40px;
+	
+	}
+	h3{
+	margin:5px auto;
+    font-size: 16px;
+		}
+
+
+.btns{
+	width:250px;
+    margin:0px auto;
+    text-align: center;
+	
+	}		
+a{
+    padding: 10px 10px;
+    margin: 5px;
+    font-size: 14px;
+
+	
+	}
+
+
+.my_logos{
+	width:70%;
+	height:auto;
+	margin:20px auto;
+        padding:20px;
+        overflow:hidden;
+        
+	}
+	
+
+        .footer{ 
+            position: fixed;
+            width:100%;
+            height: auto;
+            padding:0px;
+            bottom:0px;
+            opacity: 1;
+            border-radius: 0px 20px 0px 0px;
+}
+        
+        
+     .footer>p{
+         background-color: #FFC107;
+         margin: 0 auto;
+        font-size: 12px;
+        font-weight: 100;
+        padding: 30px;
+        color: #673AB7;
+        border-radius: 0px 20px 74px 0px
+        
+        
+    }  
+    
+}
+	
+
+    
+    
+    
+</style>
+
+
+
+</head>
+
+<body>
+
+<div class="header">
+<div class="main logo">
+
+<img src="banner/logo.png">
+
+</div>
+  <h1>Graphies Portfolio</h1>
+  <h3 id="text"></h3>
+        <script>
+var mytext = "Here are my few Banner,book cover and mobile and desktop web UI design.";
+var textAray=mytext.split("");
+var timer;
+
+function textRun(){
+    
+    if(textAray.length>0){
+        document.getElementById('text').innerHTML+=textAray.shift();
+    }else{
+        //textAray.length=(textAray.length-1);
+        clearTimeout(timer);
+    }
+    
+    timer=setTimeout('textRun()',70);
+}
+textRun();
+    
+    </script>
+  <div class="btns">
+  <a href="index.html">Logo Design</a>
+  <a href="banner.html"class="atv">More Design</a>
+</div>
+</div>
+
+<div class="my_banner">
+   <div class="row">
+<div class="column">
+              <img src="banner/tr (1).jpg" style="width:100%"> 
+              <img src="banner/tr (1).png" style="width:100%">
+              <img src="banner/tr (2).jpg" style="width:100%">
+              <img src="banner/tr (2).png" style="width:100%">
+              <img src="banner/tm (1).png" style="width:100%">
+              <img src="banner/ts (1).png" style="width:100%">
+              
+    </div>
+ <div class="column">
+               <img src="banner/tm (1).jpg" style="width:100%"> 
+              <img src="banner/tr (3).png" style="width:100%">
+              <img src="banner/tr (4).png" style="width:100%">
+              <img src="banner/tr (5).png" style="width:100%">
+              <img src="banner/ts (1).jpg" style="width:100%">
+              <img src="banner/tr (6).png" style="width:100%">    
+    </div>
+ <div class="column">
+              <img src="banner/tr (7).png" style="width:100%"> 
+              <img src="banner/tr (8).png" style="width:100%">
+              <img src="banner/tm (2).png" style="width:100%">
+              <img src="banner/tr (9).png" style="width:100%">
+              <img src="banner/tr (10).jpg" style="width:100%">
+              <img src="banner/ts (2).png" style="width:100%">  
+    </div>
+   <div class="column">
+               <img src="banner/ts (3).png" style="width:100%"> 
+              <img src="banner/tr (11).png" style="width:100%">
+              <img src="banner/tr (12).png" style="width:100%">
+              <img src="banner/tr (13).png" style="width:100%">
+              <img src="banner/tr (14).png" style="width:100%">
+              <img src="banner/tm (2).jpg" style="width:100%">
+    </div>  
+    
+</div>
+</div>
+
+
+<div class="footer"> 
+ <p>Here some of design are completly uniqe and few from exiting Design </p>
+
+</div>
+
+
+
+
+
+</body>
+</html>
